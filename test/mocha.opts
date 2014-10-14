@@ -1,0 +1,4 @@
+--throw-deprecation
+-R spec
+./test/*.test.js
+./test/**/*.test.js
