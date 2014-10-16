@@ -22,7 +22,6 @@ var PromiseQueue = function(workers){
    * @param {function} next
    */
   var jobHandler = function(job,next){
-    console.log('executing job',job)
     //call the function try to get the promise
     var rv = job.func()
     //make sure we have a promise

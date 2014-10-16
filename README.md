@@ -1,4 +1,4 @@
-promiseq
+PromiseQ [![Build Status](https://travis-ci.org/snailjs/promiseq.png?branch=master)](https://travis-ci.org/snailjs/promiseq)
 ========
 
 Promise queue for node.js
@@ -22,5 +22,19 @@ var queue = new PromiseQueue(workerCount)
 
 //make a job
 var job = function(){
-  return 
-queue.push
+  return new P(function(resolve,reject){
+    process.nextTick(resolve)
+  })
+}
+
+//add a single job
+queue.push(job).then(function(){console.log('Job complete'}))
+
+//close the queue and listen for the drain
+queue.close().then(funciton(){console.log('Queue closed and drained')})
+```
+
+## Changelog
+
+### 0.1.0
+* Initial release
