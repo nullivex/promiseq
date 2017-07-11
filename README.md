@@ -31,7 +31,7 @@ var job = function(){
 queue.push(job).then(function(){console.log('Job complete'}))
 
 //close the queue and listen for the drain
-queue.close().then(funciton(){console.log('Queue closed and drained')})
+queue.close().then(function(){console.log('Queue closed and drained')})
 ```
 
 ## Changelog
