@@ -28,7 +28,7 @@ var job = function(){
 }
 
 //add a single job
-queue.push(job).then(function(){console.log('Job complete'}))
+queue.push(job).then(function(){console.log('Job complete')})
 
 //close the queue and listen for the drain
 queue.close().then(function(){console.log('Queue closed and drained')})
