@@ -1,4 +1,4 @@
-PromiseQ [![Build Status](https://travis-ci.org/snailjs/promiseq.png?branch=master)](https://travis-ci.org/snailjs/promiseq)
+PromiseQ [![Build Status](https://travis-ci.org/nullivex/promiseq.png?branch=master)](https://travis-ci.org/nullivex/promiseq)
 ========
 
 Promise queue for node.js
