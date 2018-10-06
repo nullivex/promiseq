@@ -1,9 +1,10 @@
 {
-  "author": "SnailJS <developers@snailjs.org>",
+  "author": "Nullivex <bryan@nullivex.com>",
   "name": "promiseq",
   "description": "Promise queue for Node.js",
-  "version": "0.1.0",
-  "homepage": "http://snailjs.org/",
+  "version": "1.0.0",
+  "homepage": "https://www.nullivex.com/",
+  "license": "MIT",
   "repository": {
     "type": "git",
     "url": "https://github.com/snailjs/promiseq.git"
@@ -21,14 +22,14 @@
     "node": ">=0.10.0"
   },
   "dependencies": {
-    "async": "0.9.x",
-    "bluebird": "2.3.x"
+    "async": "2.6.x",
+    "bluebird": "3.5.x"
   },
   "scripts": {
     "test": "node ./node_modules/mocha/bin/mocha"
   },
   "devDependencies": {
-    "chai": "1.9.x",
-    "mocha": "1.21.x"
+    "chai": "4.2.x",
+    "mocha": "5.2.x"
   }
 }

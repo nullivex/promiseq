@@ -8,13 +8,14 @@ var os = require('os')
 /**
  * Promise PromiseQueue constructor
  * @param {number} workers
+ * @param {number} allowance
  * @constructor
  */
-var PromiseQueue = function(workers){
+var PromiseQueue = function(workers,allowance){
   this.stopping = false
   this.total = 0
   this.workers = +(workers || os.cpus().length)
-
+  this.allowance = (allowance || 0)
 
   /**
    * Job handler to queued jobs
@@ -91,6 +92,16 @@ PromiseQueue.prototype.close = function(){
 
 
 /**
+ * Check if the queue can accept slots without queuing
+ * @returns {boolean}
+ */
+PromiseQueue.prototype.canAccept = function(){
+  var status = this.status()
+  return (status.running + status.queued) < (status.slots + status.allowance)
+}
+
+
+/**
  * Get the current queue status
  * @return {{slots: (q.concurrency|*), running: *, length: *, total: *}}
  */
@@ -98,7 +109,8 @@ PromiseQueue.prototype.status = function(){
   var processed = this.total - this.q.length() - this.q.running()
   var percent = ((processed / (this.total || 1)) * 100).toFixed(2)
   return {
-    slots: this.q.workers,
+    slots: this.workers,
+    allowance: this.allowance,
     running: this.q.running(),
     queued: this.q.length(),
     total: this.total,

@@ -1,4 +1,5 @@
 --throw-deprecation
+--exit
 -R spec
 ./test/*.test.js
 ./test/**/*.test.js

@@ -36,5 +36,12 @@ queue.close().then(function(){console.log('Queue closed and drained')})
 
 ## Changelog
 
+### 1.0.0
+* Update dependencies
+* Add `canAccept()` function to queue to see if slots are available
+* Add `allowance` to allow overloading of `canAccept()` function
+* Fix bug related to definition of total slots
+* Update license and distributor details
+
 ### 0.1.0
 * Initial release

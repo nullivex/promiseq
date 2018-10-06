@@ -47,6 +47,41 @@ describe('helpers/PromiseQ',function(){
       })
       .catch(done)
   })
+  it('should allow checking for acceptance of jobs',function(done){
+    var q = new PromiseQ()
+    q.push(function(){
+      return new P(function(resolve){
+        process.nextTick(function(){
+          resolve(['foo','bar','baz'])
+        })
+      })
+    })
+    var canAccept = q.canAccept()
+    expect(canAccept).to.equal(true)
+    done()
+  })
+  it('should work with allowance of scheduling',function(done){
+    var q = new PromiseQ(1,2)
+    q.push(function(){
+      return new P(function(resolve){
+        process.nextTick(function(){
+          resolve(['foo','bar','baz'])
+        })
+      })
+    })
+    q.push(function(){
+      return new P(function(resolve){
+        process.nextTick(function(){
+          resolve(['foo','bar','baz'])
+        })
+      })
+    })
+    process.nextTick(function(){
+      var canAccept = q.canAccept()
+      expect(canAccept).to.equal(true)
+      done()
+    })
+  })
   it('should bubble errors',function(done){
     var q = new PromiseQ()
     q.push(function(){
