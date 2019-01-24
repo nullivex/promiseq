@@ -92,9 +92,16 @@ describe('helpers/PromiseQ',function(){
       })
     })
       .then(function(){
+        expect(q.failed).to.equal(0)
+        expect(q.succeeded).to.equal(1)
+        expect(q.complete).to.equal(1)
         done('error didnt bubble')
       })
       .catch(function(err){
+        var status = q.status()
+        expect(status.failed).to.equal(1)
+        expect(status.succeeded).to.equal(0)
+        expect(status.complete).to.equal(1)
         expect(err).to.be.instanceOf(Error)
         expect(err.message).to.equal('foo')
         done()

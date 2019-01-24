@@ -14,6 +14,7 @@ var os = require('os')
 var PromiseQueue = function(workers,allowance){
   this.stopping = false
   this.total = 0
+  this.failed = 0
   this.workers = +(workers || os.cpus().length)
   this.allowance = (allowance || 0)
 
@@ -64,8 +65,12 @@ PromiseQueue.prototype.push = function(job){
       that.q.push({func: job},function(){
         var args = Array.prototype.slice.call(arguments,0)
         var err = args.shift()
-        if(err) reject(err)
-        else resolve.apply(null,args)
+        if(err){
+          that.failed = that.failed + 1
+          reject(err)
+        } else{
+          resolve.apply(null,args)
+        }
       })
     }
   })
@@ -106,15 +111,18 @@ PromiseQueue.prototype.canAccept = function(){
  * @return {{slots: (q.concurrency|*), running: *, length: *, total: *}}
  */
 PromiseQueue.prototype.status = function(){
-  var processed = this.total - this.q.length() - this.q.running()
-  var percent = ((processed / (this.total || 1)) * 100).toFixed(2)
+  var complete = this.total - this.q.length() - this.q.running()
+  var percent = ((complete / (this.total || 1)) * 100).toFixed(2)
   return {
     slots: this.workers,
     allowance: this.allowance,
+    failed: this.failed,
     running: this.q.running(),
     queued: this.q.length(),
     total: this.total,
-    processed: processed,
+    processed: complete,
+    succeeded: complete - this.failed,
+    complete: complete,
     percent: percent
   }
 }

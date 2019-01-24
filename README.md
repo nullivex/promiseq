@@ -22,7 +22,7 @@ var queue = new PromiseQueue(workerCount)
 
 //make a job
 var job = function(){
-  return new P(function(resolve,reject){
+  return new P(function(resolve){
     process.nextTick(resolve)
   })
 }
@@ -35,6 +35,11 @@ queue.close().then(function(){console.log('Queue closed and drained')})
 ```
 
 ## Changelog
+
+### 1.1.0
+* Deprecated the `processed` stat in favor of `complete`
+* Added `failed` stat that tracks error counts
+* Added `succeeded` stat which is (`complete` - `failed`)
 
 ### 1.0.0
 * Update dependencies
